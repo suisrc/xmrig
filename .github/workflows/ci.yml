@@ -33,7 +33,7 @@ jobs:
           DOCKER_BOS=${DOCKER_BOS%%-*}
 
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login $REGISTRY_URL -u ${{ github.actor }} --password-stdin
-          docker build ./$DOCKER_DIR --file ./$DOCKER_DIR/$DOCKER_BOS.Dockerfile --tag image
+          docker build . --file Dockerfile --tag image
 
       - name: Push quay image
         run: |
