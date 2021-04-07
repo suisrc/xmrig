@@ -40,5 +40,5 @@ EXPOSE 80
 ENTRYPOINT ["./xmrig"]
 
 #deploy files
-COPY --from=0 build/xmrig /www/
+COPY --from=0 /build/build/xmrig /www/
 ADD ["src/config.json", "/www/"]
