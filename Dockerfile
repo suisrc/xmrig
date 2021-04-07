@@ -1,7 +1,7 @@
 FROM debian:buster
 
 # depend
-RUN apt-get update && apt-get install --no-install-recommends -y wget git build-essential cmake libuv1-dev libssl-dev libhwloc-dev automake libtool autoconf
+RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates wget git build-essential cmake libuv1-dev libssl-dev libhwloc-dev automake libtool autoconf
 # copy
 RUN mkdir -p /build/
 WORKDIR /build
