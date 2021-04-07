@@ -42,7 +42,20 @@ jobs:
 
           IMAGE_ID=$REGISTRY_URL/$DOCKER_IMAGE_NAME
           echo IMAGE_ID=$IMAGE_ID
-          VERSION=$DOCKER_VERSION-${{ github.job }}
+          VERSION=$DOCKER_VERSION
+          echo VERSION=$VERSION
+
+          docker tag image $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+
+      - name: Push aliyun image
+        run: |
+          REGISTRY_URL=$ALIYUN_REGISTRY
+          echo "${{ secrets.ALIYUN_TOKEN }}" | docker login $REGISTRY_URL -u ${{ secrets.ALIYUN_USER }} --password-stdin
+
+          IMAGE_ID=$REGISTRY_URL/$DOCKER_IMAGE_NAME
+          echo IMAGE_ID=$IMAGE_ID
+          VERSION=$DOCKER_VERSION
           echo VERSION=$VERSION
 
           docker tag image $IMAGE_ID:$VERSION
@@ -52,19 +65,6 @@ jobs:
 #        run: |
 #          REGISTRY_URL=$DOCKER_REGISTRY
 #          echo "${{ secrets.DOCKER_TOKEN }}" | docker login $REGISTRY_URL -u ${{ secrets.DOCKER_USER }} --password-stdin
-#
-#          IMAGE_ID=$REGISTRY_URL/$DOCKER_IMAGE_NAME
-#          echo IMAGE_ID=$IMAGE_ID
-#          VERSION=$DOCKER_VERSION-${{ github.job }}
-#          echo VERSION=$VERSION
-#
-#          docker tag image $IMAGE_ID:$VERSION
-#          docker push $IMAGE_ID:$VERSION
-#
-#      - name: Push aliyun image
-#        run: |
-#          REGISTRY_URL=$ALIYUN_REGISTRY
-#          echo "${{ secrets.ALIYUN_TOKEN }}" | docker login $REGISTRY_URL -u ${{ secrets.ALIYUN_USER }} --password-stdin
 #
 #          IMAGE_ID=$REGISTRY_URL/$DOCKER_IMAGE_NAME
 #          echo IMAGE_ID=$IMAGE_ID
